@@ -1,0 +1,6 @@
+Java 21 syntax parse: 48 files, 0 syntax errors (not a compile).
+Frontend TypeScript check: passed.
+Frontend Prettier check: passed.
+Next.js production build: blocked by unavailable Linux SWC binary and npm DNS.
+Maven compilation and runtime/integration tests: not run (Maven/Docker unavailable and dependency downloads blocked).
+V1 migration: identical to supplied archive.

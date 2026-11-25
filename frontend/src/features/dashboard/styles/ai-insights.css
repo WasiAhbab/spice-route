@@ -1,0 +1,223 @@
+/* AI Insights Report */
+
+.ai-report {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid #e2e4da;
+  animation: ai-report-enter 0.4s ease both;
+}
+
+.ai-report-header,
+.ai-topic-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ai-report-header h2 {
+  margin: 8px 0;
+  font-size: 28px;
+}
+
+.ai-report-header p {
+  color: #777c70;
+  font-size: 14px;
+  margin: 0;
+}
+
+.ai-eyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #777c70;
+}
+
+.ai-sentiment {
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: #eeeee5;
+  color: #5b6253;
+}
+
+.ai-sentiment.positive {
+  background: #e4ecd9;
+  color: #456138;
+}
+
+.ai-sentiment.negative {
+  background: #f5e5df;
+  color: #a05440;
+}
+
+.ai-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.ai-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid #e2e4da;
+  border-radius: 12px;
+  background: #f7f7f1;
+}
+
+.ai-metric span {
+  font-size: 13px;
+  color: #6d7467;
+}
+
+.ai-metric strong {
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.ai-metric.praise strong {
+  color: #526b42;
+}
+
+.ai-metric.complaint strong {
+  color: #a75b42;
+}
+
+.ai-section-title {
+  font-size: 17px;
+  margin: 28px 0 16px;
+}
+
+.ai-topics {
+  display: grid;
+  gap: 20px;
+}
+
+.ai-topic {
+  padding: 24px;
+  border: 1px solid #e2e4da;
+  border-radius: 12px;
+  background: #fdfcf8;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ai-topic:hover {
+  border-color: #b8c0ac;
+  box-shadow: 0 4px 16px #303c2b08;
+}
+
+.ai-topic-header h3 {
+  margin: 10px 0 0;
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.ai-topic-label {
+  display: inline-flex;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ai-topic-label.praise {
+  background: #e5ecd9;
+  color: #526b42;
+}
+
+.ai-topic-label.complaint {
+  background: #f5e5df;
+  color: #a75b42;
+}
+
+.ai-mention {
+  font-size: 12px;
+  color: #73796b;
+  white-space: nowrap;
+}
+
+.ai-evidence {
+  margin-top: 24px;
+}
+
+.ai-evidence blockquote {
+  margin: 12px 0;
+  padding: 12px 16px;
+  border-left: 3px solid #aeb99b;
+  border-radius: 0 6px 6px 0;
+  background: #f2f3eb;
+  font-size: 14px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.ai-topic.complaint blockquote {
+  border-left-color: #c28c77;
+  background: #f8f0ea;
+}
+
+.ai-recommendation {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #e7e8df;
+}
+
+.ai-recommendation p {
+  margin: 10px 0 0;
+  line-height: 1.7;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.ai-report-footer {
+  margin-top: 24px;
+  color: #858a7e;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@keyframes ai-report-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .ai-metrics {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .ai-topic {
+    padding: 16px;
+  }
+
+  .ai-report-header h2 {
+    font-size: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-report {
+    animation: none;
+  }
+
+  .ai-topic {
+    transition: none;
+  }
+}

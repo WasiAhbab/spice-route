@@ -1,0 +1,19 @@
+node_modules/
+.next/
+target/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.bak
+*.tsbuildinfo
+coverage/
+.idea/
+*.iml
+
+# Logs and database backups
+*.log
+*.dump
+*.sql.bak
+spice-backup.sql
+.vscode/
