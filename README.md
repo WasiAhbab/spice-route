@@ -72,3 +72,12 @@ GitHub Actions runs backend tests and the frontend type check/build. The Postgre
 ## Refinement release
 
 See [Refinement release and acceptance checks](docs/refinement-release.md) before upgrading an existing database.
+
+## Cloud Deployment
+
+- Database: Neon PostgreSQL (Singapore)
+- Backend: Spring Boot hosted on Railway
+- Frontend: Next.js
+- Database migrations: Flyway
+- AI provider: Google Gemini
+- Sensitive credentials are managed through environment variables.
