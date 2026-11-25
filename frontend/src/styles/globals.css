@@ -799,3 +799,81 @@ button.directory-main:hover:not(:disabled) {
 .feedback-row p {
   overflow-wrap: anywhere;
 }
+
+/* Customer contact information */
+
+.feedback-contact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  background: #f5f6f0;
+  border: 1px solid #e2e6da;
+  border-radius: 12px;
+}
+
+.feedback-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.feedback-contact-item > svg {
+  flex-shrink: 0;
+  color: #657653;
+}
+
+.feedback-contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.feedback-contact-label {
+  color: #7b8273;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.feedback-contact-value {
+  color: #344533;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.feedback-contact-unavailable {
+  color: #8b9185;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.feedback-contact-item a {
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.feedback-contact-item a:hover {
+  color: #718461;
+  text-decoration: underline;
+}
+
+.feedback-contact-item a:focus-visible {
+  outline: 2px solid #718461;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+@media (max-width: 600px) {
+  .feedback-contact {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 12px 14px;
+  }
+}
