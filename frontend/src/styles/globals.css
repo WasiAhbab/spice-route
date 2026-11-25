@@ -800,8 +800,173 @@ button.directory-main:hover:not(:disabled) {
   overflow-wrap: anywhere;
 }
 
-/* Customer contact information */
+/* International phone input */
+.guest-card .phone-group {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
 
+.guest-card .phone-group > label {
+  display: block;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.guest-card .phone-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+
+.guest-card .phone-field select,
+.guest-card .phone-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.guest-card .phone-field select {
+  padding: 0 38px 0 12px;
+  text-overflow: ellipsis;
+}
+
+.guest-card .phone-field input {
+  padding: 0 12px;
+}
+
+.guest-card .phone-field select:focus,
+.guest-card .phone-field input:focus {
+  outline: none;
+  border-color: var(--olive);
+  box-shadow: 0 0 0 3px #525e3e26;
+}
+
+.guest-card .contact-hint {
+  display: block;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .guest-card .phone-field {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .guest-card .phone-field select,
+  .guest-card .phone-field input {
+    font-size: 16px;
+  }
+}
+
+@media (forced-colors: active) {
+  .guest-card .phone-field select {
+    padding-right: 12px;
+  }
+
+  .guest-card .phone-field select:focus,
+  .guest-card .phone-field input:focus {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}
+
+/* Guest feedback preview */
+.guest-preview-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 22px;
+  background: #f5f0df;
+  border: 1px solid #e4dbc0;
+  border-radius: 10px;
+  color: #78602e;
+  overflow-wrap: anywhere;
+}
+
+.guest-preview-indicator {
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #b9964b;
+}
+
+.guest-preview-banner strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.guest-preview-banner p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Table preview and live feedback links */
+.directory-actions .table-preview-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--olive);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.directory-actions .table-preview-link svg {
+  flex-shrink: 0;
+}
+
+.directory-actions .table-preview-link:hover {
+  background: #e9ede2;
+  border-color: #c5cdbb;
+  color: #344533;
+}
+
+.directory-actions .table-preview-link:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+}
+
+/* Customer contact details in authorized feedback listings */
 .feedback-contact {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -819,6 +984,7 @@ button.directory-main:hover:not(:disabled) {
   align-items: center;
   gap: 11px;
   min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .feedback-contact-item > svg {
@@ -834,7 +1000,7 @@ button.directory-main:hover:not(:disabled) {
 }
 
 .feedback-contact-label {
-  color: #7b8273;
+  color: #646c5e;
   font-size: 11px;
   font-weight: 500;
   line-height: 1.4;
@@ -849,31 +1015,88 @@ button.directory-main:hover:not(:disabled) {
 }
 
 .feedback-contact-unavailable {
-  color: #8b9185;
+  color: #686f62;
   font-size: 12px;
   font-weight: 400;
 }
 
 .feedback-contact-item a {
+  color: var(--olive);
   text-decoration: none;
   transition: color 160ms ease;
 }
 
 .feedback-contact-item a:hover {
-  color: #718461;
+  color: #344533;
   text-decoration: underline;
 }
 
 .feedback-contact-item a:focus-visible {
-  outline: 2px solid #718461;
-  outline-offset: 4px;
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
   border-radius: 3px;
+}
+
+@media (max-width: 650px) {
+  .directory-actions .table-preview-link {
+    flex: 1 1 auto;
+  }
 }
 
 @media (max-width: 600px) {
   .feedback-contact {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: minmax(0, 1fr);
     padding: 12px 14px;
+  }
+}
+
+/* Inline customer feedback validation */
+
+.guest-card .field-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  color: #b43d35;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  animation: field-warning-enter 160ms ease-out;
+}
+
+.guest-card .field-warning svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.guest-card input.invalid-field,
+.guest-card .phone-field input.invalid-field {
+  border-color: #cb554c;
+  background-color: #fffaf8;
+}
+
+.guest-card input.invalid-field:focus,
+.guest-card .phone-field input.invalid-field:focus {
+  outline: none;
+  border-color: #cb554c;
+  box-shadow: 0 0 0 3px rgba(203, 85, 76, 0.12);
+}
+
+@keyframes field-warning-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guest-card .field-warning {
+    animation: none;
   }
 }

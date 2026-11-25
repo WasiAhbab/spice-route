@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { request } from "@/lib/api";
-import { Leaf, CheckCircle } from "lucide-react";
-
+import { Leaf, CheckCircle, AlertCircle } from "lucide-react";
 import {
   getCountries,
   getCountryCallingCode,
@@ -115,8 +114,15 @@ type FeedbackInfo = {
 
 type Language = keyof typeof copy;
 
-export default function Feedback({ token }: { token: string }) {
-  const [info, setInfo] = useState<FeedbackInfo | null>(null);
+type FeedbackProps = {
+  token: string;
+  preview?: boolean;
+};
+
+export default function Feedback({
+  token,
+  preview = false,
+}: FeedbackProps) {  const [info, setInfo] = useState<FeedbackInfo | null>(null);
   const [lang, setLang] = useState<Language>("en");
   const [rating, setRating] = useState(0);
   const [error, setError] = useState("");
@@ -126,10 +132,23 @@ export default function Feedback({ token }: { token: string }) {
   const [country, setCountry] = useState<CountryCode>("BD");
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
+  const [nameError, setNameError] = useState(false);
+const [phoneError, setPhoneError] = useState(false);
 
   const submitting = useRef(false);
 
   const c = copy[lang];
+  const nameWarning = {
+    en: "Please enter letters and spaces only.",
+    bn: "শুধু অক্ষর এবং স্পেস ব্যবহার করুন।",
+    mixed: "Shudhu letters ebong space use korun.",
+  }[lang];
+  
+  const phoneWarning = {
+    en: "Please enter digits only.",
+    bn: "শুধুমাত্র সংখ্যা ব্যবহার করুন।",
+    mixed: "Shudhu numbers use korun.",
+  }[lang];
 
   useEffect(() => {
     let active = true;
@@ -159,6 +178,9 @@ export default function Feedback({ token }: { token: string }) {
     event: React.FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
+    if (preview) {
+      return;
+    }
 
     if (submitting.current || !rating || !info) {
       return;
@@ -234,6 +256,25 @@ export default function Feedback({ token }: { token: string }) {
   return (
     <main className="guest">
       <section className="guest-card">
+      {preview && (
+  <div className="guest-preview-banner" role="status">
+    <span className="guest-preview-indicator" />
+
+    <div>
+      <strong>
+        {lang === "bn" ? "প্রিভিউ মোড" : "Preview mode"}
+      </strong>
+
+      <p>
+        {lang === "bn"
+          ? "এটি শুধুমাত্র পরীক্ষার জন্য। কোনো মতামত সংরক্ষণ করা হবে না।"
+          : lang === "mixed"
+            ? "Eti shudhu preview. Kono feedback save hobe na."
+            : "Test your customer experience without recording feedback."}
+      </p>
+    </div>
+  </div>
+)}
         <div className="brand">
           <Leaf />
           spice route
@@ -300,24 +341,38 @@ export default function Feedback({ token }: { token: string }) {
 
               {info.collect_contact !== false && (
                 <>
-                  <label>
-                    {c.name}
+            <label>
+  {c.name}
 
-                    <input
-                      name="name"
-                      type="text"
-                      autoComplete="name"
-                      placeholder={c.namePlaceholder}
-                      maxLength={120}
-                      value={customerName}
-                      disabled={busy}
-                      onChange={(event) =>
-                        setCustomerName(
-                          normalizeName(event.target.value),
-                        )
-                      }
-                    />
-                  </label>
+  <input
+    name="name"
+    type="text"
+    autoComplete="name"
+    placeholder={c.namePlaceholder}
+    maxLength={120}
+    value={customerName}
+    disabled={busy}
+    className={nameError ? "invalid-field" : ""}
+    aria-describedby={nameError ? "name-warning" : undefined}
+    onChange={(event) => {
+      const value = event.target.value;
+
+      setNameError(/[^\p{L}\p{M} ]/u.test(value));
+      setCustomerName(normalizeName(value));
+    }}
+  />
+
+  {nameError && (
+    <span
+      id="name-warning"
+      className="field-warning"
+      role="alert"
+    >
+      <AlertCircle size={14} aria-hidden="true" />
+      {nameWarning}
+    </span>
+  )}
+</label>
 
                   <div className="phone-group">
                     <label htmlFor="customer-phone">
@@ -348,24 +403,40 @@ export default function Feedback({ token }: { token: string }) {
                       </select>
 
                       <input
-                        id="customer-phone"
-                        name="phone"
-                        type="tel"
-                        inputMode="numeric"
-                        autoComplete="tel-national"
-                        placeholder={c.phonePlaceholder}
-                        aria-label={c.phone}
-                        aria-describedby="customer-phone-hint"
-                        maxLength={15}
-                        value={phone}
-                        disabled={busy}
-                        onChange={(event) =>
-                          setPhone(
-                            normalizeDigits(event.target.value),
-                          )
-                        }
-                      />
+  id="customer-phone"
+  name="phone"
+  type="tel"
+  inputMode="numeric"
+  autoComplete="tel-national"
+  placeholder={c.phonePlaceholder}
+  aria-label={c.phone}
+  aria-describedby={
+    phoneError
+      ? "phone-warning customer-phone-hint"
+      : "customer-phone-hint"
+  }
+  maxLength={15}
+  value={phone}
+  disabled={busy}
+  className={phoneError ? "invalid-field" : ""}
+  onChange={(event) => {
+    const value = event.target.value;
+
+    setPhoneError(/[^0-9০-৯]/u.test(value));
+    setPhone(normalizeDigits(value));
+  }}
+/>
                     </div>
+                    {phoneError && (
+  <span
+    id="phone-warning"
+    className="field-warning"
+    role="alert"
+  >
+    <AlertCircle size={14} aria-hidden="true" />
+    {phoneWarning}
+  </span>
+)}
 
                     <small
                       id="customer-phone-hint"
@@ -377,13 +448,19 @@ export default function Feedback({ token }: { token: string }) {
                 </>
               )}
 
-              <button
-                type="submit"
-                disabled={!rating || busy}
-                aria-busy={busy}
-              >
-                {busy ? c.submitting : c.submit}
-              </button>
+<button
+  type="submit"
+  disabled={preview || !rating || busy}
+  aria-busy={busy}
+>
+  {preview
+    ? lang === "bn"
+      ? "প্রিভিউতে সাবমিশন বন্ধ"
+      : "Submission disabled in preview"
+    : busy
+      ? c.submitting
+      : c.submit}
+</button>
             </form>
           </>
         ) : !error ? (
